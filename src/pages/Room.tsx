@@ -4,16 +4,17 @@ import { useState, FormEvent } from "react";
 
 import logoImg from "../assets/images/logo.svg";
 import { Button } from "../components/Button";
+import { ToggleSwitch } from "../components/ToggleSwitch";
 import { RoomCode } from "../components/RoomCode";
 import { Question } from "../components/Question";
 
 import "../styles/room.scss";
 
 import { useAuth } from "../hooks/useAuth";
+import { useRoom } from "../hooks/useRoom";
+import { useTheme } from "../hooks/useTheme";
 
 import { database } from "../services/firebase";
-
-import { useRoom } from "../hooks/useRoom";
 
 type RoomParams = {
   id: string;
@@ -25,6 +26,7 @@ export function Room() {
 
   const { user } = useAuth();
   const { questions, title } = useRoom(roomId);
+  const { theme, toggleTheme } = useTheme();
 
   const [newQuestion, setNewQuestion] = useState("");
 
@@ -67,10 +69,13 @@ export function Room() {
   }
 
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+          <>
+            <img src={logoImg} alt="Letmeask" />
+            <ToggleSwitch onClick={toggleTheme} />
+          </>
           <RoomCode code={roomId} />
         </div>
       </header>

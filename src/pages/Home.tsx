@@ -9,6 +9,7 @@ import googleIconImg from "../assets/images/google-icon.svg";
 import "../styles/auth.scss";
 
 import { useAuth } from "../hooks/useAuth";
+import { useTheme } from "../hooks/useTheme";
 
 import { database } from "../services/firebase";
 
@@ -18,6 +19,7 @@ export function Home() {
   const { user, signInWithGoogle } = useAuth();
 
   const [roomCode, setRoomCode] = useState("");
+
 
   async function handleCreateRoom() {
     if (!user) await signInWithGoogle();

@@ -6,12 +6,14 @@ import checkImg from "../assets/images/check.svg";
 import answerImg from "../assets/images/answer.svg";
 
 import { Button } from "../components/Button";
+import { ToggleSwitch } from "../components/ToggleSwitch";
 import { RoomCode } from "../components/RoomCode";
 import { Question } from "../components/Question";
 
 import "../styles/room.scss";
 
 import { useRoom } from "../hooks/useRoom";
+import { useTheme } from "../hooks/useTheme";
 
 import { database } from "../services/firebase";
 
@@ -24,6 +26,7 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { questions, title } = useRoom(roomId);
+  const { theme, toggleTheme } = useTheme();
 
   async function handleDeleteQuestion(questionId: string) {
     if (window.confirm("Tem certeza que deseja excluir esta pergunta?")) {
@@ -52,10 +55,13 @@ export function AdminRoom() {
   }
 
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+		  <>
+            <img src={logoImg} alt="Letmeask" />
+            <ToggleSwitch onClick={toggleTheme} />
+          </>
           <div className="group-button">
             <RoomCode code={roomId} />
             <Button secondary onClick={() => handleEndRoom()}>

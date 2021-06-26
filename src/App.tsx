@@ -8,18 +8,21 @@ import { Room } from "./pages/Room";
 import { AdminRoom } from "./pages/AdminRoom";
 
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { ThemeContextProvider } from "./contexts/ThemeContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <AuthContextProvider>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/rooms/new" component={NewRoom} />
-          <Route exact path="/rooms/:id" component={Room} />
-		  <Route exact path="/admin/rooms/:id" component={AdminRoom} />
-        </Switch>
-      </AuthContextProvider>
+      <ThemeContextProvider>
+        <AuthContextProvider>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/rooms/new" component={NewRoom} />
+            <Route exact path="/rooms/:id" component={Room} />
+            <Route exact path="/admin/rooms/:id" component={AdminRoom} />
+          </Switch>
+        </AuthContextProvider>
+      </ThemeContextProvider>
     </BrowserRouter>
   );
 }
