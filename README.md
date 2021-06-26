@@ -11,7 +11,7 @@
 <br>
 
 <p align="center">
-  <img alt="Letmeask" src=".github/happy.png" width="100%">
+  <img alt="Letmeask" src=".github/BG_Letmeask.png" width="100%">
 </p>
 
 ## Tecnologias
