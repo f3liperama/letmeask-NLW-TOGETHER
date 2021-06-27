@@ -1,9 +1,10 @@
 import { useParams, useHistory } from "react-router-dom";
 
 import { Logo } from "../../components/Logo";
-import deleteImg from "../../assets/images/delete.svg";
-import checkImg from "../../assets/images/check.svg";
-import answerImg from "../../assets/images/answer.svg";
+
+import { CheckQuestionIcon } from "../../components/CheckQuestionIcon";
+import { DeleteQuestionIcon } from "../../components/DeleteQuestionIcon";
+import { AnswerQuestionIcon } from "../../components/AnswerQuestionIcon";
 
 import { Button } from "../../components/Button";
 import { ToggleSwitch } from "../../components/ToggleSwitch";
@@ -100,16 +101,13 @@ export function AdminRoom() {
                       type="button"
                       onClick={() => handleCheckQuestionAsAnswered(question.id)}
                     >
-                      <img src={checkImg} alt="Marcar pergunta" />
+                      <CheckQuestionIcon />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleHighlightQuestion(question.id)}
                     >
-                      <img
-                        src={answerImg}
-                        alt="Declarar que esta pergunta está sendo respondida no momento"
-                      />
+                      <AnswerQuestionIcon />
                     </button>
                   </>
                 )}
@@ -117,7 +115,7 @@ export function AdminRoom() {
                   type="button"
                   onClick={() => handleDeleteQuestion(question.id)}
                 >
-                  <img src={deleteImg} alt="Deletar pergunta" />
+                  <DeleteQuestionIcon />
                 </button>
               </Question>
             );

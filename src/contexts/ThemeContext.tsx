@@ -11,10 +11,14 @@ type Theme = {
     primary: string;
     secondary: string;
     background: string;
-	backgroundTextArea: string;
+    backgroundTextArea: string;
+    backgroundRoomCode: string;
+	backgroundQuestion: string;
     textPrimary: string;
-	textSecondary: string;
-	headerSeparator: string;
+    textSecondary: string;
+    headerSeparator: string;
+    questionHighlighted: string;
+    questionAnswered: string;
   };
 };
 
@@ -32,7 +36,7 @@ export const ThemeContext = createContext({} as ThemeContextType);
 export function ThemeContextProvider(props: ThemeContextProviderProps) {
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
     const storageTheme = localStorage.getItem("letmeask@theme");
-
+	console.log(`storageTheme ${storageTheme}`)
     if (!storageTheme) {
       return light;
     }

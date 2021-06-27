@@ -8,9 +8,13 @@ declare module "styled-components" {
       secondary: string;
       background: string;
 	  backgroundTextArea: string;
+	  backgroundRoomCode: string;
+	  backgroundQuestion: string;
       textPrimary: string;
 	  textSecondary: string;
 	  headerSeparator: string;
+	  questionHighlighted: string;
+	  questionAnswered: string;
     };
   }
 }
