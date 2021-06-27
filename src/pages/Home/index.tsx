@@ -1,17 +1,16 @@
 import { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "../components/Button";
+import { Button } from "../../components/Button";
 
-import illustrationImg from "../assets/images/illustration.svg";
-import logoImg from "../assets/images/logo.svg";
-import googleIconImg from "../assets/images/google-icon.svg";
+import illustrationImg from "../../assets/images/illustration.svg";
+import logoImg from "../../assets/images/logo.svg";
+import googleIconImg from "../../assets/images/google-icon.svg"
 
-import "../styles/auth.scss";
+import { useAuth } from "../../hooks/useAuth";
 
-import { useAuth } from "../hooks/useAuth";
-import { useTheme } from "../hooks/useTheme";
+import { database } from "../../services/firebase";
 
-import { database } from "../services/firebase";
+import { Container, MainContent, Separator, CreateRoomButton } from './styles';
 
 export function Home() {
   const history = useHistory();
@@ -29,7 +28,6 @@ export function Home() {
   async function handleJoinRoom(event: FormEvent) {
     event.preventDefault();
 
-    console.log("roomcode: " + roomCode.trim());
     if (roomCode.trim() === "") return;
 
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
@@ -48,7 +46,7 @@ export function Home() {
   }
 
   return (
-    <div id="page-auth">
+    <Container>
       <aside>
         <img
           src={illustrationImg}
@@ -58,13 +56,13 @@ export function Home() {
         <p>Tire dúvidas da sua audiência em tempo real.</p>
       </aside>
       <main>
-        <div className="main-content">
+        <MainContent>
           <img src={logoImg} alt="Letmeask logo" />
-          <button className="create-room" onClick={handleCreateRoom}>
+          <CreateRoomButton onClick={handleCreateRoom}>
             <img src={googleIconImg} alt="Ícone do Google" />
             Crie sua sala com o google
-          </button>
-          <div className="separator">ou entre em uma sala</div>
+          </CreateRoomButton>
+          <Separator>ou entre em uma sala</Separator>
           <form onSubmit={handleJoinRoom}>
             <input
               type="text"
@@ -74,8 +72,8 @@ export function Home() {
             />
             <Button type="submit">Entrar na sala</Button>
           </form>
-        </div>
+        </MainContent>
       </main>
-    </div>
+    </Container>
   );
 }

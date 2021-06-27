@@ -10,7 +10,7 @@ export function ToggleSwitch(props: ToggleSwitchProps) {
   const { theme } = useTheme();
 
   return (
-    <div className={`toggle ${theme === "dark" ? "on" : "off"}`} {...props}>
+    <div className={`toggle ${theme.title === "dark" ? "on" : "off"}`} {...props}>
       <div className="toggle-circle"></div>
     </div>
   );

@@ -2,19 +2,19 @@ import { useParams } from "react-router-dom";
 
 import { useState, FormEvent } from "react";
 
-import logoImg from "../assets/images/logo.svg";
-import { Button } from "../components/Button";
-import { ToggleSwitch } from "../components/ToggleSwitch";
-import { RoomCode } from "../components/RoomCode";
-import { Question } from "../components/Question";
+import { Button } from "../../components/Button";
+import { ToggleSwitch } from "../../components/ToggleSwitch";
+import { RoomCode } from "../../components/RoomCode";
+import { Question } from "../../components/Question";
+import { Logo } from "../../components/Logo";
 
-import "../styles/room.scss";
+import { useAuth } from "../../hooks/useAuth";
+import { useRoom } from "../../hooks/useRoom";
+import { useTheme } from "../../hooks/useTheme";
 
-import { useAuth } from "../hooks/useAuth";
-import { useRoom } from "../hooks/useRoom";
-import { useTheme } from "../hooks/useTheme";
+import { database } from "../../services/firebase";
 
-import { database } from "../services/firebase";
+import { Container, Content, ContentMain, FormFooter, QuestionList, RoomTitle, UserInfo, Utils } from "./styles";
 
 type RoomParams = {
   id: string;
@@ -26,7 +26,7 @@ export function Room() {
 
   const { user } = useAuth();
   const { questions, title } = useRoom(roomId);
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
   const [newQuestion, setNewQuestion] = useState("");
 
@@ -69,34 +69,34 @@ export function Room() {
   }
 
   return (
-    <div id="page-room" className={theme}>
+    <Container>
       <header>
-        <div className="content">
-          <>
-            <img src={logoImg} alt="Letmeask" />
+        <Content>
+          <Utils>
+            <Logo />
             <ToggleSwitch onClick={toggleTheme} />
-          </>
+          </Utils>
           <RoomCode code={roomId} />
-        </div>
+        </Content>
       </header>
 
-      <main className="content">
-        <div className="room-title">
+      <ContentMain>
+        <RoomTitle>
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span>{questions.length} perguntas</span>}
-        </div>
+        </RoomTitle>
         <form onSubmit={handleSendQuestion}>
           <textarea
             placeholder="O que você quer perguntar?"
             onChange={(event) => setNewQuestion(event.target.value)}
             value={newQuestion}
           />
-          <div className="form-footer">
+          <FormFooter>
             {user ? (
-              <div className="user-info">
+              <UserInfo>
                 <img src={user?.avatar} alt="Avatar do usuário" />
                 <span>{user?.name}</span>
-              </div>
+              </UserInfo>
             ) : (
               <span>
                 Para enviar uma pergunta, <button>faça seu login.</button>
@@ -104,10 +104,10 @@ export function Room() {
             )}
 
             <Button>Enviar pergunta</Button>
-          </div>
+          </FormFooter>
         </form>
 
-        <div className="question-list">
+        <QuestionList>
           {questions.map((question) => {
             return (
               <Question
@@ -149,8 +149,8 @@ export function Room() {
               </Question>
             );
           })}
-        </div>
-      </main>
-    </div>
+        </QuestionList>
+      </ContentMain>
+    </Container>
   );
 }
