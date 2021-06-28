@@ -78,6 +78,8 @@ export function Room() {
     }
   }
 
+  console.log('tem usuario logado? ' + !!user);
+
   return (
     <Container>
       <header>
@@ -112,8 +114,8 @@ export function Room() {
                 Para enviar uma pergunta, <button>faça seu login.</button>
               </span>
             )}
-
-            <Button>Enviar pergunta</Button>
+			
+            <Button disabled={!!user === false}>Enviar pergunta</Button>
           </FormFooter>
         </form>
 

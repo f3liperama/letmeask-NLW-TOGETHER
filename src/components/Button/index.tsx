@@ -4,10 +4,18 @@ import { Container } from "./styles";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   secondary?: boolean;
+  block?: boolean;
 };
 
-export function Button({ secondary = false, ...props }: ButtonProps) {
+export function Button({
+  secondary = false,
+  block = false,
+  ...props
+}: ButtonProps) {
   return (
-    <Container className={`button ${secondary ? "outlined" : ""}`} {...props} />
+    <Container
+      className={`${secondary ? "outlined" : ""}`}
+      {...props}
+    />
   );
 }
