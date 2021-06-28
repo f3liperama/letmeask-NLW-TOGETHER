@@ -4,6 +4,7 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
   height: 100vh;
+  background: #fff;
 
   aside {
     flex: 7;

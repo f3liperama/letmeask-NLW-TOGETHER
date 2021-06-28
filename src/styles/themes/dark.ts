@@ -13,6 +13,5 @@ export default {
 	headerSeparator: "#333",
 	questionHighlighted: "#835afd",
 	questionAnswered: "#1d1d1d",
-	icons: "",
   },
 };
