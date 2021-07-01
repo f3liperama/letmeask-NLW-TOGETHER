@@ -39,6 +39,8 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
       }
     });
 
+	console.log(`user: ${user}`);
+
     return () => {
       unsubscribe();
     };

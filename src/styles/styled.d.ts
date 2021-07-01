@@ -10,6 +10,9 @@ declare module "styled-components" {
 	  backgroundTextArea: string;
 	  backgroundRoomCode: string;
 	  backgroundQuestion: string;
+	  backgroundModal: string;
+	  backgroundCancel: string;
+	  backgroundSubmit: string;
       textPrimary: string;
 	  textSecondary: string;
 	  headerSeparator: string;

@@ -10,9 +10,11 @@ import { Button } from "../../components/Button";
 import { ToggleSwitch } from "../../components/ToggleSwitch";
 import { RoomCode } from "../../components/RoomCode";
 import { Question } from "../../components/Question";
+import { Modal } from "../../components/Modal";
 
 import { useRoom } from "../../hooks/useRoom";
 import { useTheme } from "../../hooks/useTheme";
+import { useModal } from "../../hooks/useModal";
 
 import { database } from "../../services/firebase";
 
@@ -34,12 +36,24 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { questions, title } = useRoom(roomId);
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
+  const { modalProps, setModalProps } = useModal();
 
   async function handleDeleteQuestion(questionId: string) {
-    if (window.confirm("Tem certeza que deseja excluir esta pergunta?")) {
-      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
-    }
+    setModalProps({
+      title: "Excluir pergunta",
+      content: "Tem certeza que deseja excluir esta pergunta?",
+      textCancelButton: "Cancelar",
+      textSubmitButton: "Sim, excluir",
+      active: true,
+      onCancel: () => {
+        setModalProps({ ...modalProps, active: false });
+      },
+      onSubmit: async () => {
+        await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
+        setModalProps({ ...modalProps, active: false });
+      },
+    });
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
@@ -55,11 +69,23 @@ export function AdminRoom() {
   }
 
   async function handleEndRoom() {
-    await database.ref(`rooms/${roomId}`).update({
-      endedAt: new Date(),
+    setModalProps({
+      title: "Encerrar sala",
+      content: "Tem certeza que deseja encerrar esta sala?",
+      textCancelButton: "Cancelar",
+      textSubmitButton: "Sim, encerrar",
+      active: true,
+      onCancel: () => {
+        setModalProps({ ...modalProps, active: false });
+      },
+      onSubmit: async () => {
+        await database.ref(`rooms/${roomId}`).update({
+          endedAt: new Date(),
+        });
+        setModalProps({ ...modalProps, active: false });
+        history.push("/");
+      },
     });
-
-    history.push("/");
   }
 
   return (
@@ -122,6 +148,8 @@ export function AdminRoom() {
           })}
         </QuestionList>
       </ContentMain>
+
+      <Modal {...modalProps} />
     </Container>
   );
 }

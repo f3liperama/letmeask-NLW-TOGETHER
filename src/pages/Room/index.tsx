@@ -34,7 +34,7 @@ export function Room() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const { user } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
   const { questions, title } = useRoom(roomId);
   const { toggleTheme } = useTheme();
 
@@ -78,7 +78,11 @@ export function Room() {
     }
   }
 
-  console.log('tem usuario logado? ' + !!user);
+  async function handleLogin() {
+	  if (!user) {
+		  await signInWithGoogle();
+	  }
+  }
 
   return (
     <Container>
@@ -104,14 +108,14 @@ export function Room() {
             value={newQuestion}
           />
           <FormFooter>
-            {user ? (
+            {!!user ? (
               <UserInfo>
                 <img src={user?.avatar} alt="Avatar do usuário" />
                 <span>{user?.name}</span>
               </UserInfo>
             ) : (
               <span>
-                Para enviar uma pergunta, <button>faça seu login.</button>
+                Para enviar uma pergunta, <button onClick={handleLogin}>faça seu login.</button>
               </span>
             )}
 			

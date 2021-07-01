@@ -2,8 +2,6 @@ import { InputHTMLAttributes } from "react";
 
 import { useTheme } from "../../hooks/useTheme";
 
-//import "./styles.scss";
-
 import { Toggle, ToggleCircle } from "./styles";
 
 type ToggleSwitchProps = InputHTMLAttributes<HTMLInputElement>;

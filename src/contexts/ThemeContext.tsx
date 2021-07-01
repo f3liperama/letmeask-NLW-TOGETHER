@@ -14,6 +14,9 @@ type Theme = {
     backgroundTextArea: string;
     backgroundRoomCode: string;
 	backgroundQuestion: string;
+	backgroundModal: string;
+	backgroundSubmit: string;
+	backgroundCancel: string;
     textPrimary: string;
     textSecondary: string;
     headerSeparator: string;
